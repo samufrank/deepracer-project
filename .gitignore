@@ -1,0 +1,48 @@
+d# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Vim swap files
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# AWS DeepRacer downloads (large data files)
+results/*/logs/
+results/*/metrics/
+results/*/sim-trace/
+
+# Analysis outputs (regeneratable from results/)
+analysis/*/
+
+# Compressed downloads
+*.tar.gz
+*.zip
+
+# Temporary files
+*.tmp
+*.bak
