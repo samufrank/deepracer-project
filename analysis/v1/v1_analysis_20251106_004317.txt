@@ -1,0 +1,101 @@
+
+======================================================================
+DEEPRACER ANALYSIS REPORT: v1
+======================================================================
+Loading training CSVs from results/v1/sim-trace/training/training-simtrace...
+  Loaded 37460 training steps across 26 iterations
+
+TRAINING SUMMARY
+----------------------------------------------------------------------
+  Total iterations: 26
+  Total episodes: 520
+  Episodes completing track: 0 (0.0%)
+  Average progress: 11.4%
+  Best progress achieved: 68.2%
+
+  Final iteration (25) completion rate: 0.0%
+
+ACTION SPACE USAGE
+----------------------------------------------------------------------
+  Unique actions used: 31564
+  Action entropy: 9.38
+  [Good diversity in action selection]
+
+STEERING ANALYSIS
+----------------------------------------------------------------------
+  Left turns (< -5°):   18659 ( 49.8%)
+  Straight (-5° to 5°):   4117 ( 11.0%)
+  Right turns (> 5°):   14684 ( 39.2%)
+  [WARNING: 10.6% bias toward left turns - track-specific overfitting likely]
+
+SPEED STATISTICS
+----------------------------------------------------------------------
+  Mean throttle: 2.08
+  Median throttle: 2.00
+  Throttle range: [0.50, 4.00]
+
+REWARD STATISTICS
+----------------------------------------------------------------------
+  Mean reward: 0.184
+  Median reward: 0.174
+  Reward range: [0.000, 0.559]
+  Std dev: 0.080
+  Early training avg (first 5 iter): 4.51
+  Late training avg (last 5 iter):  21.13
+  Improvement: +368.2%
+
+BEHAVIOR ANALYSIS
+----------------------------------------------------------------------
+  Speed-progress correlation: -0.238
+  [Weak speed-progress relationship]
+
+  Episode length statistics:
+    Mean steps per episode: 72.0
+    Median steps per episode: 49.0
+    Max steps observed: 380.0
+
+FAILURE ANALYSIS
+----------------------------------------------------------------------
+  Total off-track events: 511
+  Unique failure waypoints: 194
+
+  Top 5 failure waypoints:
+    Waypoint  75:   13 failures (  2.5%) at position (-1.94, 4.54)
+    Waypoint  29:   12 failures (  2.3%) at position (-6.66, -0.96)
+    Waypoint 143:    9 failures (  1.8%) at position (2.09, 4.13)
+    Waypoint  77:    9 failures (  1.8%) at position (-1.68, 4.03)
+    Waypoint 170:    9 failures (  1.8%) at position (6.88, 1.76)
+
+  Failure concentration: 10.2% of failures occur at top 5 waypoints
+Loading evaluation CSV from results/v1_eval_barcelona/sim-trace/evaluation/20251106063252-S9g9s4c_Rq66Puo500UmEQ/evaluation-simtrace/0-iteration.csv...
+  Loaded 3676 evaluation steps
+
+======================================================================
+EVALUATION RESULTS
+======================================================================
+
+Track: v1_eval_barcelona
+----------------------------------------------------------------------
+  Trials completing track: 5/5 (100%)
+
+  Lap Times:
+    Best:     44.62s
+    Average:  49.26s
+    Worst:    57.02s
+    Std Dev:   4.75s
+  [Slow lap times - consider improving reward function]
+
+======================================================================
+
+Training analysis plot saved to analysis/v1/v1_training_analysis.png
+Track failure map saved to analysis/v1/v1_track_failures.png
+
+Generating evaluation plots...
+Generating detailed evaluation plot for v1_eval_barcelona...
+Detailed evaluation plot saved to analysis/v1/v1_eval_detailed.png
+
+Generating per-track failure maps...
+  Generating failure map for v1_eval_barcelona...
+  Evaluation failure map saved to analysis/v1/v1_eval_v1_eval_barcelona_failures.png
+
+Analysis complete. Log saved to analysis/v1/v1_analysis_20251106_004317.txt

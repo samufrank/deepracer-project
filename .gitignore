@@ -1,4 +1,4 @@
-d# macOS
+# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -31,13 +31,13 @@ build/
 *.sublime-project
 *.sublime-workspace
 
-# AWS DeepRacer downloads (large data files)
-results/*/logs/
-results/*/metrics/
-results/*/sim-trace/
+# AWS DeepRacer downloads
+#results/*/logs/
+#results/*/metrics/
+#results/*/sim-trace/
 
-# Analysis outputs (regeneratable from results/)
-analysis/*/
+# Analysis outputs
+#analysis/*/
 
 # Compressed downloads
 *.tar.gz
