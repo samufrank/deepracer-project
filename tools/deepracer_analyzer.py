@@ -746,12 +746,87 @@ def generate_report(run):
         elif action_entropy > 3.0:
             print(f"  [Good diversity in action selection]")
         
+        # steering bias analysis
+        print(f"\nSTEERING ANALYSIS")
+        print("-" * 70)
+        steering = df['steer']
+        left_turns = (steering < -5).sum()
+        right_turns = (steering > 5).sum()
+        straight = ((steering >= -5) & (steering <= 5)).sum()
+        total_steps = len(steering)
+        
+        print(f"  Left turns (< -5°):  {left_turns:6d} ({left_turns/total_steps*100:5.1f}%)")
+        print(f"  Straight (-5° to 5°): {straight:6d} ({straight/total_steps*100:5.1f}%)")
+        print(f"  Right turns (> 5°):  {right_turns:6d} ({right_turns/total_steps*100:5.1f}%)")
+        
+        # Check for bias
+        turn_bias = abs(left_turns - right_turns) / total_steps * 100
+        if turn_bias > 10:
+            bias_direction = "left" if left_turns > right_turns else "right"
+            print(f"  [WARNING: {turn_bias:.1f}% bias toward {bias_direction} turns - track-specific overfitting likely]")
+        elif turn_bias > 5:
+            bias_direction = "left" if left_turns > right_turns else "right"
+            print(f"  [Slight {bias_direction} bias detected - may affect generalization]")
+        else:
+            print(f"  [Balanced steering - good for generalization]")
+        
         # speed analysis
         print(f"\nSPEED STATISTICS")
         print("-" * 70)
         print(f"  Mean throttle: {df['throttle'].mean():.2f}")
         print(f"  Median throttle: {df['throttle'].median():.2f}")
         print(f"  Throttle range: [{df['throttle'].min():.2f}, {df['throttle'].max():.2f}]")
+        
+        # reward statistics
+        print(f"\nREWARD STATISTICS")
+        print("-" * 70)
+        print(f"  Mean reward: {df['reward'].mean():.3f}")
+        print(f"  Median reward: {df['reward'].median():.3f}")
+        print(f"  Reward range: [{df['reward'].min():.3f}, {df['reward'].max():.3f}]")
+        print(f"  Std dev: {df['reward'].std():.3f}")
+        
+        # Reward progression over iterations
+        episode_rewards = df.groupby(['iteration', 'episode'])['reward'].sum()
+        iter_avg_reward = episode_rewards.groupby('iteration').mean()
+        
+        if len(iter_avg_reward) >= 5:
+            early_reward = iter_avg_reward.iloc[:5].mean()
+            late_reward = iter_avg_reward.iloc[-5:].mean()
+            reward_improvement = ((late_reward - early_reward) / abs(early_reward) * 100) if early_reward != 0 else 0
+            print(f"  Early training avg (first 5 iter): {early_reward:.2f}")
+            print(f"  Late training avg (last 5 iter):  {late_reward:.2f}")
+            print(f"  Improvement: {reward_improvement:+.1f}%")
+            
+            if reward_improvement < 10:
+                print(f"  [WARNING: Minimal reward improvement - model may not be learning effectively]")
+        
+        # Speed vs progress correlation
+        print(f"\nBEHAVIOR ANALYSIS")
+        print("-" * 70)
+        episode_stats = df.groupby(['iteration', 'episode']).agg({
+            'throttle': 'mean',
+            'progress': 'max',
+            'steps': 'max'
+        })
+        
+        speed_progress_corr = episode_stats['throttle'].corr(episode_stats['progress'])
+        print(f"  Speed-progress correlation: {speed_progress_corr:+.3f}")
+        if speed_progress_corr < -0.3:
+            print(f"  [Model learned to go SLOW for safety]")
+        elif speed_progress_corr > 0.3:
+            print(f"  [Model associates higher speed with better progress]")
+        else:
+            print(f"  [Weak speed-progress relationship]")
+        
+        # Episode length statistics
+        episode_lengths = episode_stats['steps']
+        print(f"\n  Episode length statistics:")
+        print(f"    Mean steps per episode: {episode_lengths.mean():.1f}")
+        print(f"    Median steps per episode: {episode_lengths.median():.1f}")
+        print(f"    Max steps observed: {episode_lengths.max()}")
+        
+        if episode_lengths.mean() > 300:
+            print(f"  [Long episodes suggest slow driving or inefficient exploration]")
         
         # failure analysis
         failures, waypoint_coords = analyze_failure_points(df)
@@ -776,7 +851,6 @@ def generate_report(run):
                 print(f"  [High concentration - failures are localized to specific track sections]")
     
     # evaluatin analysis
-    print()
     all_evals = run.get_all_evaluations()
     
     if len(all_evals) > 0:
