@@ -8,7 +8,7 @@ Speed multiplier: `(1 + speed/4.0)` when within 40% of track width - rewards hig
 Centerline: Reduced from primary reward to 1.1-1.2x bonus - maintains stability without over-constraining
 Steering penalty: 0.8x for abs(angle) > 15° - encourages smooth control
 
-## Training Configuration
+## Training config
 Track: Barcelona (60m, 16 turns, clockwise)
 Duration: 120 minutes (26 iterations)
 Action space: Speed 0.5 - 4.0 m/s, steering +/- 30°
