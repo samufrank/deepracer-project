@@ -1,0 +1,199 @@
+
+======================================================================
+DEEPRACER ANALYSIS REPORT: v2b
+======================================================================
+Loading training CSVs from results/v2b/sim-trace/training/training-simtrace...
+  Loaded 27741 training steps across 24 iterations
+
+TRAINING SUMMARY
+----------------------------------------------------------------------
+  Total iterations: 24
+  Total episodes: 480
+  Episodes completing track: 0 (0.0%)
+  Average progress: 8.6%
+  Best progress achieved: 51.9%
+
+  Final iteration (23) completion rate: 0.0%
+
+ACTION SPACE USAGE
+----------------------------------------------------------------------
+  Unique actions used: 22847
+  Action entropy: 8.97
+  [Good diversity in action selection]
+
+STEERING ANALYSIS
+----------------------------------------------------------------------
+  Left turns (< -5°):   13883 ( 50.0%)
+  Straight (-5° to 5°):   2834 ( 10.2%)
+  Right turns (> 5°):   11024 ( 39.7%)
+  [WARNING: 10.3% bias toward left turns - track-specific overfitting likely]
+
+SPEED STATISTICS
+----------------------------------------------------------------------
+  Mean throttle: 2.08
+  Median throttle: 1.98
+  Throttle range: [0.50, 4.00]
+
+REWARD STATISTICS
+----------------------------------------------------------------------
+  Mean reward: 0.790
+  Median reward: 0.627
+  Reward range: [0.000, 4.682]
+  Std dev: 0.596
+  Early training avg (first 5 iter): 10.53
+  Late training avg (last 5 iter):  75.39
+  Improvement: +615.7%
+
+SPEED-REWARD ANALYSIS
+----------------------------------------------------------------------
+  Speed-reward correlation: +0.105
+  [WARNING: Weak speed incentive - reward function may not encourage speed]
+
+BEHAVIOR ANALYSIS
+----------------------------------------------------------------------
+  Speed-progress correlation: -0.148
+  [Weak speed-progress relationship]
+
+  Episode length statistics:
+    Mean steps per episode: 57.8
+    Median steps per episode: 43.0
+    Max steps observed: 330.0
+
+  Episode efficiency change:
+    Early training avg length: 28.3 steps
+    Late training avg length: 80.0 steps
+    Change: +182.2%
+    [WARNING: Episodes getting significantly longer - learning inefficiency]
+
+ACTION SPACE UTILIZATION
+----------------------------------------------------------------------
+  Speed bins with above-average usage: 2/20 (10%)
+  [WARNING: Limited speed diversity - possible bimodal distribution]
+
+FAILURE ANALYSIS
+----------------------------------------------------------------------
+  Total off-track events: 468
+  Unique failure waypoints: 187
+
+  Top 5 failure waypoints:
+    Waypoint  75:   12 failures (  2.6%) at position (-1.91, 4.55)
+    Waypoint  77:   11 failures (  2.4%) at position (-1.69, 4.06)
+    Waypoint 142:   11 failures (  2.4%) at position (1.77, 4.36)
+    Waypoint  29:    9 failures (  1.9%) at position (-6.87, -0.92)
+    Waypoint 140:    9 failures (  1.9%) at position (0.84, 4.53)
+
+  Failure concentration: 11.1% of failures occur at top 5 waypoints
+Loading evaluation CSV from results/v2b_eval_barcelona/sim-trace/evaluation/20251107170905-FwlhR1T6TRCm9wjH5LxKHQ/evaluation-simtrace/0-iteration.csv...
+  Loaded 3802 evaluation steps
+Loading evaluation CSV from results/v2b_eval_ace/sim-trace/evaluation/20251107184636-NHnCzUHcSBGX3dvyqaUfdQ/evaluation-simtrace/0-iteration.csv...
+  Loaded 3876 evaluation steps
+Loading evaluation CSV from results/v2b_eval_reinvent/sim-trace/evaluation/20251107173834-2lz-dYBFRQW2kVANyi0eBg/evaluation-simtrace/0-iteration.csv...
+  Loaded 3148 evaluation steps
+
+======================================================================
+EVALUATION RESULTS
+======================================================================
+
+Track: v2b_eval_barcelona
+----------------------------------------------------------------------
+  Estimated track length: 62.72m
+  Track complexity: 0.2462
+    [Complex track - high curvature variance]
+  Trials completing track: 5/5 (100%)
+
+  Lap Times:
+    Best:     47.30s
+    Average:  50.95s
+    Worst:    54.34s
+    Std Dev:   3.05s
+
+  Track Speed (m/s):
+    Best:      1.33 m/s
+    Average:   1.23 m/s
+    Worst:     1.15 m/s
+    Std Dev:   0.07 m/s
+  [Slow lap times - consider improving reward function]
+
+Track: v2b_eval_ace
+----------------------------------------------------------------------
+  Estimated track length: 49.14m
+  Track complexity: 0.0476
+    [Moderate complexity]
+  Trials completing track: 5/5 (100%)
+
+  Lap Times:
+    Best:     49.45s
+    Average:  51.94s
+    Worst:    55.28s
+    Std Dev:   2.85s
+
+  Track Speed (m/s):
+    Best:      0.99 m/s
+    Average:   0.95 m/s
+    Worst:     0.89 m/s
+    Std Dev:   0.05 m/s
+  [Slow lap times - consider improving reward function]
+
+Track: v2b_eval_reinvent
+----------------------------------------------------------------------
+  Estimated track length: 35.26m
+  Track complexity: 0.1630
+    [Complex track - high curvature variance]
+  Trials completing track: 5/5 (100%)
+
+  Lap Times:
+    Best:     35.04s
+    Average:  42.18s
+    Worst:    44.96s
+    Std Dev:   4.16s
+
+  Track Speed (m/s):
+    Best:      1.01 m/s
+    Average:   0.84 m/s
+    Worst:     0.78 m/s
+    Std Dev:   0.09 m/s
+  [Moderate performance - room for optimization]
+
+======================================================================
+CROSS-TRACK PERFORMANCE SUMMARY
+======================================================================
+
+Track           Length   Complex   Complete   Best Time   Avg Speed  Reliability 
+--------------------------------------------------------------------------------
+barcelona       62.7m    0.246     100%       47.3s       1.23       Excellent   
+ace             49.1m    0.048     100%       49.4s       0.95       Excellent   
+reinvent        35.3m    0.163     100%       35.0s       0.84       Excellent   
+
+Note: Avg Speed = track_length / avg_lap_time (m/s)
+      Complex = curvature variance (higher = more complex track)
+
+======================================================================
+
+Training analysis plot saved to analysis/v2b/v2b_training_analysis.png
+Track failure map saved to analysis/v2b/v2b_track_failures.png
+Generating action space utilization heatmap...
+Action space heatmap saved to analysis/v2b/v2b_action_space.png
+Generating reward distribution analysis...
+Reward analysis saved to analysis/v2b/v2b_reward_analysis.png
+
+Generating evaluation plots...
+Generating multi-track comparison plot (3 tracks)...
+Multi-track comparison plot saved to analysis/v2b/v2b_eval_comparison.png
+
+Generating per-track failure maps...
+  Generating failure map for v2b_eval_barcelona...
+  Evaluation failure map saved to analysis/v2b/v2b_eval_barcelona_failures.png
+  Generating failure map for v2b_eval_ace...
+  Evaluation failure map saved to analysis/v2b/v2b_eval_ace_failures.png
+  Generating failure map for v2b_eval_reinvent...
+  Evaluation failure map saved to analysis/v2b/v2b_eval_reinvent_failures.png
+
+Generating per-track speed profiles...
+  Generating speed profile for v2b_eval_barcelona...
+  Speed profile saved to analysis/v2b/v2b_eval_barcelona_speed_profile.png
+  Generating speed profile for v2b_eval_ace...
+  Speed profile saved to analysis/v2b/v2b_eval_ace_speed_profile.png
+  Generating speed profile for v2b_eval_reinvent...
+  Speed profile saved to analysis/v2b/v2b_eval_reinvent_speed_profile.png
+
+Analysis complete. Log saved to analysis/v2b/v2b_analysis_20251109_153308.txt
