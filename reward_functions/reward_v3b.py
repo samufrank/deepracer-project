@@ -3,7 +3,10 @@
 # reduced base progress (3+2 vs 5+3) to accommodate multiplier
 # speed creates 1.125x to 2.0x gradient across 0.5-4.0 m/s range
 # result: fixed extremes (ace -32%, kuei -46%) but broke re:invent (+62%)
-# conclusion: speed optimization conflicts with technical track performance
+# critical failure: speed-reward correlation +0.260 (flat, multiplier too weak)
+# episode efficiency: +272% regression (learning inefficiency)
+# action space: still 10% utilization (bimodal persists despite gradient)
+# conclusion: multiplicative approach failed, reduced base reward hurt learning signal
 
 import math
 

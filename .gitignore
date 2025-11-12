@@ -48,4 +48,13 @@ build/
 *.bak
 
 # misc
+/results/*/logs/
 /docs
+/results/archive/
+/analysis/archive/
+
+# AWS DeepRacer logs
+**/logs/training/*-sagemaker.log
+**/logs/training/*-robomaker.log
+**/logs/evaluation/*-sagemaker.log
+**/logs/evaluation/*-robomaker.log

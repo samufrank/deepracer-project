@@ -1,9 +1,11 @@
 # v3 reward function: v1b base + conservative additive speed bonus
-# returns to v1b's proven progress only approach, adds speed incentive
+# returns to v1b's proven progress-only approach, adds speed incentive
 # base: scaled progress (0-8 range) for efficiency rewards
 # new: additive speed bonus +1.0 max when on track near centerline
 # result: best re:invent time (29.21s), 100% reliability, first training completion
-# trade-off: cautious policy (1.84 m/s), poor on extremes kKuei 79s)
+# trade-off: cautious policy (1.84 m/s mean), bimodal action space (10% utilization)
+# episode efficiency: +512% regression (getting slower over training)
+# speed-reward correlation: +0.217 (weak speed incentive despite additive bonus)
 
 
 import math
@@ -24,7 +26,7 @@ def reward_function(params):
     
     # new: cnoservative speed bonus (additive, not multiplicative)
     if distance_from_center < 0.4 * track_width and all_wheels_on_track:
-        reward += (speed / 4.0) * 1.0  # Max +1.0 bonus at top speed
+        reward += (speed / 4.0) * 1.0  # max +1.0 bonus at top speed
     
     # centerline bonus
     if distance_from_center <= 0.1 * track_width:
