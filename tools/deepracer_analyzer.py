@@ -746,7 +746,7 @@ def plot_reward_distribution(df, model_name, output_dir=None, display=True):
     axes[1, 0].legend()
     axes[1, 0].grid(True, alpha=0.3)
     
-    # Panel 4 (bottom-right): NEW - Reward vs Speed
+    # Panel 4 (bottom-right): Reward vs Speed
     axes[1, 1].scatter(df['throttle'], df['reward'], alpha=0.2, s=5, c='green')
     
     # Add mean reward per speed bin
@@ -1355,7 +1355,7 @@ def generate_report(run):
         print(f"    Median steps per episode: {episode_lengths.median():.1f}")
         print(f"    Max steps observed: {episode_lengths.max()}")
         
-        # NEW: Episode efficiency change analysis
+        # episode efficiency change analysis
         if len(episode_lengths) >= 10:
             # Group by iteration to get mean episode length per iteration
             episode_lengths_per_iter = df.groupby(['iteration', 'episode'])['steps'].max().groupby('iteration').mean()
@@ -1377,7 +1377,7 @@ def generate_report(run):
         if episode_lengths.mean() > 300:
             print(f"  [Long episodes suggest slow driving or inefficient exploration]")
         
-        # NEW: Action space utilization metrics
+        # action space utilization metrics
         print(f"\nACTION SPACE UTILIZATION")
         print("-" * 70)
         speed_bins = np.linspace(0.5, 4.0, 21)
@@ -1431,7 +1431,7 @@ def generate_report(run):
             if track_length is not None:
                 print(f"  Estimated track length: {track_length:.2f}m")
             
-            # NEW: Calculate track complexity
+            # calculate track complexity
             track_complexity = calculate_track_complexity(eval_df)
             if track_complexity is not None:
                 print(f"  Track complexity: {track_complexity:.4f}")
@@ -1452,18 +1452,81 @@ def generate_report(run):
             n_trials = len(eval_episodes)
             completed = (eval_episodes['progress'] == 100).sum()
             
-            print(f"  Trials completing track: {completed}/{n_trials} ({completed/n_trials*100:.0f}%)")
+            print(f"\n  Trials completing track: {completed}/{n_trials} ({completed/n_trials*100:.0f}%)")
             
             if completed > 0:
                 complete_eps = eval_episodes[eval_episodes['progress'] == 100]
                 # estimate lap time (steps * 0.067 seconds per step)
                 lap_times = complete_eps['steps'] * 0.067
-                print(f"\n  Lap Times:")
-                print(f"    Best:    {lap_times.min():6.2f}s")
-                print(f"    Average: {lap_times.mean():6.2f}s")
-                print(f"    Worst:   {lap_times.max():6.2f}s")
-                print(f"    Std Dev: {lap_times.std():6.2f}s")
+                # Analyze clean vs dirty runs
+                clean_episodes = []
+                dirty_episodes = []
+                total_off_tracks = 0
+                total_penalty_time = 0.0
+
+                for episode_id in eval_df['episode'].unique():
+                    episode_data = eval_df[eval_df['episode'] == episode_id]
+                    
+                    # Count off-track events
+                    off_track_count = (episode_data['episode_status'] == 'off_track').sum()
+                    pause_count = (episode_data['episode_status'] == 'pause').sum()
+                    penalty_time = pause_count * 0.067
+                    
+                    total_off_tracks += off_track_count
+                    total_penalty_time += penalty_time
+                    
+                    had_off_track = off_track_count > 0
+                    completed = episode_data['progress'].max() == 100
+                    
+                    if completed:
+                        lap_time = len(episode_data) * 0.067
+                        if had_off_track:
+                            dirty_episodes.append(lap_time)
+                        else:
+                            clean_episodes.append(lap_time)
+
+                avg_off_tracks = total_off_tracks / n_trials
+                avg_penalty = total_penalty_time / n_trials
+
+                n_clean = len(clean_episodes)
+                n_dirty = len(dirty_episodes)
+                n_total_completed = n_clean + n_dirty
+
+                print(f"  Clean runs (no off-track): {n_clean}/{n_trials} ({n_clean/n_trials*100:.0f}%)")
+
+                print(f"\n  Lap Times (all completed: {n_total_completed}/{n_trials}):")
+                print(f"    Best:     {lap_times.min():.2f}s")
+                print(f"    Average:  {lap_times.mean():.2f}s")
+                print(f"    Worst:    {lap_times.max():.2f}s")
+                print(f"    Std Dev:  {lap_times.std():.2f}s")
                 
+                print("")
+                print(f"  Clean runs (no off-track): {n_clean}/{n_trials} ({n_clean/n_trials*100:.0f}%)")
+                print(f"  Off-track events: {total_off_tracks} total, {avg_off_tracks:.1f} per trial")
+                print(f"  Penalty time: {total_penalty_time:.1f}s total, {avg_penalty:.1f}s per trial")
+
+                print(f"\n  Lap Times (all {n_total_completed} completed trials):")
+                print(f"    Best:     {lap_times.min():.2f}s")
+                print(f"    Average:  {lap_times.mean():.2f}s")
+                print(f"    Worst:    {lap_times.max():.2f}s")
+                print(f"    Std Dev:  {lap_times.std():.2f}s")
+
+                if n_clean > 0:
+                    clean_times = np.array(clean_episodes)
+                    print(f"\n  Best clean run: {clean_times.min():.2f}s ({n_clean} clean trials)")
+                    if n_clean > 1:
+                        print(f"    Average clean: {clean_times.mean():.2f}s")
+                        print(f"    Std Dev: {clean_times.std():.2f}s")
+                else:
+                    print(f"\n  [No clean runs - all trials had off-track events]")
+
+                if n_dirty > 0:
+                    dirty_times = np.array(dirty_episodes)
+                    print(f"\n  Trials with off-track: {n_dirty}")
+                    print(f"    Best: {dirty_times.min():.2f}s")
+                    print(f"    Average: {dirty_times.mean():.2f}s")
+
+                         
                 # Calculate and display track speed (m/s) if length is available
                 if track_length is not None:
                     track_speeds = track_length / lap_times
@@ -1530,12 +1593,45 @@ def generate_report(run):
                 display_name = track_name
                 if display_name.startswith(f"{run.model_name}_eval_"):
                     display_name = display_name[len(f"{run.model_name}_eval_"):]
-                
+
+                clean_count = 0
+                total_off_tracks = 0
+                total_penalty_time = 0.0
+
+                for episode_id in eval_df['episode'].unique():
+                    episode_data = eval_df[eval_df['episode'] == episode_id]
+                    
+                    # Count off-track events in this episode
+                    off_track_count = (episode_data['episode_status'] == 'off_track').sum()
+                    
+                    # Count pause rows (penalty time) - assuming each pause row is 0.067s per step
+                    pause_count = (episode_data['episode_status'] == 'pause').sum()
+                    penalty_time = pause_count * 0.067  # steps to seconds
+                    
+                    total_off_tracks += off_track_count
+                    total_penalty_time += penalty_time
+                    
+                    completed = episode_data['progress'].max() == 100
+                    had_off_track = off_track_count > 0
+                    
+                    if completed and not had_off_track:
+                        clean_count += 1
+
+                avg_off_tracks = total_off_tracks / n_trials
+                avg_penalty = total_penalty_time / n_trials
+
+                clean_rate = f"{clean_count}/{n_trials}"
+                off_track_summary = f"{avg_off_tracks:.1f}/tr"
+                penalty_summary = f"{avg_penalty:.1f}s/tr"
+            
+
                 summary_data.append({
-                    'Track': display_name[:15],  # Truncate long names
+                    'Track': display_name[:15],  
                     'Length': f"{track_length:.1f}m" if track_length else "N/A",
                     'Complex': f"{track_complexity:.3f}" if track_complexity else "N/A",
                     'Completion': f"{completion_rate:.0f}%",
+                    'OffTrack': off_track_summary,
+                    'Penalty': penalty_summary,
                     'Best Time': f"{best_time:.1f}s" if best_time else "DNF",
                     'Avg Speed': f"{avg_speed:.2f}" if avg_speed else "N/A",
                     'Reliability': reliability
@@ -1544,16 +1640,16 @@ def generate_report(run):
             # Print formatted table
             if summary_data:
                 # Header
-                print(f"\n{'Track':<15} {'Length':<8} {'Complex':<9} {'Complete':<10} {'Best Time':<11} {'Avg Speed':<10} {'Reliability':<12}")
-                print("-" * 80)
+                print(f"\n{'Track':<15} {'Length':<8} {'Complete':<10} {'OffTrack':<12} {'Penalty':<8} {'Best Time':<11} {'Avg Speed':<10} {'Reliability':<12}")
+                print("-" * 95)
                 
                 # Rows
                 for row in summary_data:
-                    print(f"{row['Track']:<15} {row['Length']:<8} {row['Complex']:<9} {row['Completion']:<10} "
-                          f"{row['Best Time']:<11} {row['Avg Speed']:<10} {row['Reliability']:<12}")
-                
+                    print(f"{row['Track']:<15} {row['Length']:<8} {row['Completion']:<10} {row['OffTrack']:<12} {row['Penalty']:<8} {row['Best Time']:<11} {row['Avg Speed']:<10} {row['Reliability']:<12}")                
                 print("\nNote: Avg Speed = track_length / avg_lap_time (m/s)")
                 print("      Complex = curvature variance (higher = more complex track)")
+                print("")
+                print("      tr = trial avg")
     
     print("\n" + "=" * 70 + "\n")
 

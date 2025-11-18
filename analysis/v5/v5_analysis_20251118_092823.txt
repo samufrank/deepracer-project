@@ -1,0 +1,623 @@
+
+======================================================================
+DEEPRACER ANALYSIS REPORT: v5
+======================================================================
+Loading training CSVs from results/v5/sim-trace/training/training-simtrace...
+  Loaded 76785 training steps across 43 iterations
+
+TRAINING SUMMARY
+----------------------------------------------------------------------
+  Total iterations: 43
+  Total episodes: 860
+  Episodes completing track: 0 (0.0%)
+  Average progress: 12.6%
+  Best progress achieved: 68.5%
+
+  Final iteration (42) completion rate: 0.0%
+
+ACTION SPACE USAGE
+----------------------------------------------------------------------
+  Unique actions used: 62331
+  Action entropy: 9.68
+  [Good diversity in action selection]
+
+STEERING ANALYSIS
+----------------------------------------------------------------------
+  Left turns (< -5°):   39580 ( 51.5%)
+  Straight (-5° to 5°):   7197 (  9.4%)
+  Right turns (> 5°):   30008 ( 39.1%)
+  [WARNING: 12.5% bias toward left turns - track-specific overfitting likely]
+
+SPEED STATISTICS
+----------------------------------------------------------------------
+  Mean throttle: 1.81
+  Median throttle: 1.58
+  Throttle range: [0.50, 4.00]
+
+REWARD STATISTICS
+----------------------------------------------------------------------
+  Mean reward: 0.862
+  Median reward: 0.722
+  Reward range: [0.000, 6.337]
+  Std dev: 0.779
+  Early training avg (first 5 iter): 9.73
+  Late training avg (last 5 iter):  184.65
+  Improvement: +1797.6%
+
+SPEED-REWARD ANALYSIS
+----------------------------------------------------------------------
+  Speed-reward correlation: -0.113
+  [WARNING: Weak speed incentive - reward function may not encourage speed]
+
+BEHAVIOR ANALYSIS
+----------------------------------------------------------------------
+  Speed-progress correlation: -0.340
+  [Model learned to go SLOW for safety]
+
+  Episode length statistics:
+    Mean steps per episode: 89.3
+    Median steps per episode: 59.0
+    Max steps observed: 472.0
+
+  Episode efficiency change:
+    Early training avg length: 32.7 steps
+    Late training avg length: 153.5 steps
+    Change: +369.7%
+    [WARNING: Episodes getting significantly longer - learning inefficiency]
+
+ACTION SPACE UTILIZATION
+----------------------------------------------------------------------
+  Speed bins with above-average usage: 2/20 (10%)
+  [WARNING: Limited speed diversity - possible bimodal distribution]
+
+FAILURE ANALYSIS
+----------------------------------------------------------------------
+  Total off-track events: 849
+  Unique failure waypoints: 219
+
+  Top 5 failure waypoints:
+    Waypoint  75:   22 failures (  2.6%) at position (-1.89, 4.54)
+    Waypoint 169:   17 failures (  2.0%) at position (7.01, 1.44)
+    Waypoint  79:   16 failures (  1.9%) at position (-1.60, 3.53)
+    Waypoint  84:   14 failures (  1.6%) at position (-2.04, 2.47)
+    Waypoint  77:   13 failures (  1.5%) at position (-1.67, 4.06)
+
+  Failure concentration: 9.7% of failures occur at top 5 waypoints
+Loading evaluation CSV from results/v5_eval_jennens/sim-trace/evaluation/20251118030630-wUNv2IdWSCCTZLfbB__rtw/evaluation-simtrace/0-iteration.csv...
+  Loaded 4173 evaluation steps
+Loading evaluation CSV from results/v5_eval_pochun-super/sim-trace/evaluation/20251118015806-trM9YmEfQmugFn89E8MXMQ/evaluation-simtrace/0-iteration.csv...
+  Loaded 5433 evaluation steps
+Loading evaluation CSV from results/v5_eval_kuei/sim-trace/evaluation/20251112164846-EtjXgDu2QhCAA8dN7GJJoQ/evaluation-simtrace/0-iteration.csv...
+  Loaded 3745 evaluation steps
+Loading evaluation CSV from results/v5_eval_forever/sim-trace/evaluation/20251118024108-hXWnEsWQQBqwIknbQvDd4A/evaluation-simtrace/0-iteration.csv...
+  Loaded 2785 evaluation steps
+Loading evaluation CSV from results/v5_eval_smile/sim-trace/evaluation/20251112183934-M22848yQQnOeMiEcX0hxVw/evaluation-simtrace/0-iteration.csv...
+  Loaded 1696 evaluation steps
+Loading evaluation CSV from results/v5_eval_atoz/sim-trace/evaluation/20251118063404-4iMHq5LjRlCDLTTix9034w/evaluation-simtrace/0-iteration.csv...
+  Loaded 1073 evaluation steps
+Loading evaluation CSV from results/v5_eval_oval/sim-trace/evaluation/20251118041555-9-bQEWuqR1W0PW7IKB3GCQ/evaluation-simtrace/0-iteration.csv...
+  Loaded 1264 evaluation steps
+Loading evaluation CSV from results/v5_eval_ace/sim-trace/evaluation/20251112180416-5UQdYbh1RCqhLotHaM7_MA/evaluation-simtrace/0-iteration.csv...
+  Loaded 2430 evaluation steps
+Loading evaluation CSV from results/v5_eval_reinvent/sim-trace/evaluation/20251111183124-BvGrza35TH2F_BUUBxVmfg/evaluation-simtrace/0-iteration.csv...
+  Loaded 3246 evaluation steps
+Loading evaluation CSV from results/v5_eval_barcelona/sim-trace/evaluation/20251111084539-2x0IMXnQQNu5b8CfAaHHpQ/evaluation-simtrace/0-iteration.csv...
+  Loaded 3881 evaluation steps
+Loading evaluation CSV from results/v5_eval_euro/sim-trace/evaluation/20251118155734-sjp3FY2eT7mYE1ZfVuDyyQ/evaluation-simtrace/0-iteration.csv...
+  Loaded 3776 evaluation steps
+
+======================================================================
+EVALUATION RESULTS
+======================================================================
+
+Track: v5_eval_jennens
+----------------------------------------------------------------------
+  Estimated track length: 64.01m
+  Track complexity: 0.1299
+    [Complex track - high curvature variance]
+
+  Trials completing track: 5/5 (100%)
+  Clean runs (no off-track): 0/5 (0%)
+
+  Lap Times (all completed: 5/5):
+    Best:     52.93s
+    Average:  55.92s
+    Worst:    60.10s
+    Std Dev:  3.04s
+
+  Clean runs (no off-track): 0/5 (0%)
+  Off-track events: 38 total, 7.6 per trial
+  Penalty time: 77.7s total, 15.5s per trial
+
+  Lap Times (all 5 completed trials):
+    Best:     52.93s
+    Average:  55.92s
+    Worst:    60.10s
+    Std Dev:  3.04s
+
+  [No clean runs - all trials had off-track events]
+
+  Trials with off-track: 5
+    Best: 52.93s
+    Average: 55.92s
+
+  Track Speed (m/s):
+    Best:      1.21 m/s
+    Average:   1.15 m/s
+    Worst:     1.07 m/s
+    Std Dev:   0.06 m/s
+  [Slow lap times - consider improving reward function]
+
+Track: v5_eval_pochun-super
+----------------------------------------------------------------------
+  Estimated track length: 89.38m
+  Track complexity: 0.0824
+    [Complex track - high curvature variance]
+
+  Trials completing track: 5/5 (100%)
+  Clean runs (no off-track): 0/5 (0%)
+
+  Lap Times (all completed: 5/5):
+    Best:     67.60s
+    Average:  72.80s
+    Worst:    79.66s
+    Std Dev:  4.55s
+
+  Clean runs (no off-track): 0/5 (0%)
+  Off-track events: 37 total, 7.4 per trial
+  Penalty time: 75.4s total, 15.1s per trial
+
+  Lap Times (all 5 completed trials):
+    Best:     67.60s
+    Average:  72.80s
+    Worst:    79.66s
+    Std Dev:  4.55s
+
+  [No clean runs - all trials had off-track events]
+
+  Trials with off-track: 5
+    Best: 67.60s
+    Average: 72.80s
+
+  Track Speed (m/s):
+    Best:      1.32 m/s
+    Average:   1.23 m/s
+    Worst:     1.12 m/s
+    Std Dev:   0.08 m/s
+  [Slow lap times - consider improving reward function]
+
+Track: v5_eval_kuei
+----------------------------------------------------------------------
+  Estimated track length: 46.55m
+  Track complexity: 0.2002
+    [Complex track - high curvature variance]
+
+  Trials completing track: 5/5 (100%)
+  Clean runs (no off-track): 0/5 (0%)
+
+  Lap Times (all completed: 5/5):
+    Best:     42.41s
+    Average:  50.18s
+    Worst:    71.62s
+    Std Dev:  12.25s
+
+  Clean runs (no off-track): 0/5 (0%)
+  Off-track events: 39 total, 7.8 per trial
+  Penalty time: 79.3s total, 15.9s per trial
+
+  Lap Times (all 5 completed trials):
+    Best:     42.41s
+    Average:  50.18s
+    Worst:    71.62s
+    Std Dev:  12.25s
+
+  [No clean runs - all trials had off-track events]
+
+  Trials with off-track: 5
+    Best: 42.41s
+    Average: 50.18s
+
+  Track Speed (m/s):
+    Best:      1.10 m/s
+    Average:   0.96 m/s
+    Worst:     0.65 m/s
+    Std Dev:   0.18 m/s
+  [Slow lap times - consider improving reward function]
+
+Track: v5_eval_forever
+----------------------------------------------------------------------
+  Estimated track length: 26.33m
+  Track complexity: 0.1774
+    [Complex track - high curvature variance]
+
+  Trials completing track: 5/5 (100%)
+  Clean runs (no off-track): 0/5 (0%)
+
+  Lap Times (all completed: 5/5):
+    Best:     29.82s
+    Average:  37.32s
+    Worst:    46.83s
+    Std Dev:  7.55s
+
+  Clean runs (no off-track): 0/5 (0%)
+  Off-track events: 40 total, 8.0 per trial
+  Penalty time: 83.8s total, 16.8s per trial
+
+  Lap Times (all 5 completed trials):
+    Best:     29.82s
+    Average:  37.32s
+    Worst:    46.83s
+    Std Dev:  7.55s
+
+  [No clean runs - all trials had off-track events]
+
+  Trials with off-track: 5
+    Best: 29.82s
+    Average: 37.32s
+
+  Track Speed (m/s):
+    Best:      0.88 m/s
+    Average:   0.73 m/s
+    Worst:     0.56 m/s
+    Std Dev:   0.14 m/s
+  [Moderate performance - room for optimization]
+
+Track: v5_eval_smile
+----------------------------------------------------------------------
+  Estimated track length: 24.13m
+  Track complexity: 0.2636
+    [Complex track - high curvature variance]
+
+  Trials completing track: 5/5 (100%)
+  Clean runs (no off-track): 0/5 (0%)
+
+  Lap Times (all completed: 5/5):
+    Best:     19.16s
+    Average:  22.73s
+    Worst:    26.06s
+    Std Dev:  3.20s
+
+  Clean runs (no off-track): 0/5 (0%)
+  Off-track events: 16 total, 3.2 per trial
+  Penalty time: 30.2s total, 6.0s per trial
+
+  Lap Times (all 5 completed trials):
+    Best:     19.16s
+    Average:  22.73s
+    Worst:    26.06s
+    Std Dev:  3.20s
+
+  [No clean runs - all trials had off-track events]
+
+  Trials with off-track: 5
+    Best: 19.16s
+    Average: 22.73s
+
+  Track Speed (m/s):
+    Best:      1.26 m/s
+    Average:   1.08 m/s
+    Worst:     0.93 m/s
+    Std Dev:   0.16 m/s
+  [Good performance - competitive lap times]
+
+Track: v5_eval_atoz
+----------------------------------------------------------------------
+  Estimated track length: 17.04m
+  Track complexity: 0.1328
+    [Complex track - high curvature variance]
+
+  Trials completing track: 5/5 (100%)
+  Clean runs (no off-track): 2/5 (40%)
+
+  Lap Times (all completed: 5/5):
+    Best:     11.26s
+    Average:  14.38s
+    Worst:    17.22s
+    Std Dev:  2.81s
+
+  Clean runs (no off-track): 2/5 (40%)
+  Off-track events: 5 total, 1.0 per trial
+  Penalty time: 12.0s total, 2.4s per trial
+
+  Lap Times (all 5 completed trials):
+    Best:     11.26s
+    Average:  14.38s
+    Worst:    17.22s
+    Std Dev:  2.81s
+
+  Best clean run: 11.26s (2 clean trials)
+    Average clean: 11.36s
+    Std Dev: 0.10s
+
+  Trials with off-track: 3
+    Best: 15.88s
+    Average: 16.39s
+
+  Track Speed (m/s):
+    Best:      1.51 m/s
+    Average:   1.22 m/s
+    Worst:     0.99 m/s
+    Std Dev:   0.25 m/s
+
+  [Excellent performance - sub-15s lap time]
+
+Track: v5_eval_oval
+----------------------------------------------------------------------
+  Estimated track length: 19.12m
+  Track complexity: 0.1285
+    [Complex track - high curvature variance]
+
+  Trials completing track: 5/5 (100%)
+  Clean runs (no off-track): 2/5 (40%)
+
+  Lap Times (all completed: 5/5):
+    Best:     13.13s
+    Average:  16.94s
+    Worst:    21.11s
+    Std Dev:  3.03s
+
+  Clean runs (no off-track): 2/5 (40%)
+  Off-track events: 5 total, 1.0 per trial
+  Penalty time: 9.8s total, 2.0s per trial
+
+  Lap Times (all 5 completed trials):
+    Best:     13.13s
+    Average:  16.94s
+    Worst:    21.11s
+    Std Dev:  3.03s
+
+  Best clean run: 13.13s (2 clean trials)
+    Average clean: 14.20s
+    Std Dev: 1.07s
+
+  Trials with off-track: 3
+    Best: 16.82s
+    Average: 18.76s
+
+  Track Speed (m/s):
+    Best:      1.46 m/s
+    Average:   1.16 m/s
+    Worst:     0.91 m/s
+    Std Dev:   0.21 m/s
+
+  [Excellent performance - sub-15s lap time]
+
+Track: v5_eval_ace
+----------------------------------------------------------------------
+  Estimated track length: 48.59m
+  Track complexity: 0.0284
+    [Moderate complexity]
+
+  Trials completing track: 5/5 (100%)
+  Clean runs (no off-track): 4/5 (80%)
+
+  Lap Times (all completed: 5/5):
+    Best:     30.49s
+    Average:  32.56s
+    Worst:    34.91s
+    Std Dev:  1.97s
+
+  Clean runs (no off-track): 4/5 (80%)
+  Off-track events: 1 total, 0.2 per trial
+  Penalty time: 1.9s total, 0.4s per trial
+
+  Lap Times (all 5 completed trials):
+    Best:     30.49s
+    Average:  32.56s
+    Worst:    34.91s
+    Std Dev:  1.97s
+
+  Best clean run: 30.49s (4 clean trials)
+    Average clean: 31.98s
+    Std Dev: 1.47s
+
+  Trials with off-track: 1
+    Best: 34.91s
+    Average: 34.91s
+
+  Track Speed (m/s):
+    Best:      1.59 m/s
+    Average:   1.50 m/s
+    Worst:     1.39 m/s
+    Std Dev:   0.09 m/s
+  [Moderate performance - room for optimization]
+
+Track: v5_eval_reinvent
+----------------------------------------------------------------------
+  Estimated track length: 36.58m
+  Track complexity: 0.2620
+    [Complex track - high curvature variance]
+
+  Trials completing track: 5/5 (100%)
+  Clean runs (no off-track): 0/5 (0%)
+
+  Lap Times (all completed: 5/5):
+    Best:     37.12s
+    Average:  43.50s
+    Worst:    49.85s
+    Std Dev:  4.63s
+
+  Clean runs (no off-track): 0/5 (0%)
+  Off-track events: 41 total, 8.2 per trial
+  Penalty time: 83.8s total, 16.8s per trial
+
+  Lap Times (all 5 completed trials):
+    Best:     37.12s
+    Average:  43.50s
+    Worst:    49.85s
+    Std Dev:  4.63s
+
+  [No clean runs - all trials had off-track events]
+
+  Trials with off-track: 5
+    Best: 37.12s
+    Average: 43.50s
+
+  Track Speed (m/s):
+    Best:      0.99 m/s
+    Average:   0.85 m/s
+    Worst:     0.73 m/s
+    Std Dev:   0.09 m/s
+  [Moderate performance - room for optimization]
+
+Track: v5_eval_barcelona
+----------------------------------------------------------------------
+  Estimated track length: 60.46m
+  Track complexity: 0.2415
+    [Complex track - high curvature variance]
+
+  Trials completing track: 5/5 (100%)
+  Clean runs (no off-track): 0/5 (0%)
+
+  Lap Times (all completed: 5/5):
+    Best:     49.04s
+    Average:  52.01s
+    Worst:    58.42s
+    Std Dev:  3.82s
+
+  Clean runs (no off-track): 0/5 (0%)
+  Off-track events: 16 total, 3.2 per trial
+  Penalty time: 32.2s total, 6.4s per trial
+
+  Lap Times (all 5 completed trials):
+    Best:     49.04s
+    Average:  52.01s
+    Worst:    58.42s
+    Std Dev:  3.82s
+
+  [No clean runs - all trials had off-track events]
+
+  Trials with off-track: 5
+    Best: 49.04s
+    Average: 52.01s
+
+  Track Speed (m/s):
+    Best:      1.23 m/s
+    Average:   1.17 m/s
+    Worst:     1.03 m/s
+    Std Dev:   0.08 m/s
+  [Slow lap times - consider improving reward function]
+
+Track: v5_eval_euro
+----------------------------------------------------------------------
+  Estimated track length: 67.91m
+  Track complexity: 0.1677
+    [Complex track - high curvature variance]
+
+  Trials completing track: 5/5 (100%)
+  Clean runs (no off-track): 0/5 (0%)
+
+  Lap Times (all completed: 5/5):
+    Best:     48.51s
+    Average:  50.60s
+    Worst:    53.00s
+    Std Dev:  2.10s
+
+  Clean runs (no off-track): 0/5 (0%)
+  Off-track events: 28 total, 5.6 per trial
+  Penalty time: 56.8s total, 11.4s per trial
+
+  Lap Times (all 5 completed trials):
+    Best:     48.51s
+    Average:  50.60s
+    Worst:    53.00s
+    Std Dev:  2.10s
+
+  [No clean runs - all trials had off-track events]
+
+  Trials with off-track: 5
+    Best: 48.51s
+    Average: 50.60s
+
+  Track Speed (m/s):
+    Best:      1.40 m/s
+    Average:   1.34 m/s
+    Worst:     1.28 m/s
+    Std Dev:   0.06 m/s
+  [Slow lap times - consider improving reward function]
+
+======================================================================
+CROSS-TRACK PERFORMANCE SUMMARY
+======================================================================
+
+Track           Length   Complete   OffTrack     Penalty  Best Time   Avg Speed  Reliability 
+-----------------------------------------------------------------------------------------------
+jennens         64.0m    100%       7.6/tr       15.5s/tr 52.9s       1.14       Excellent   
+pochun-super    89.4m    100%       7.4/tr       15.1s/tr 67.6s       1.23       Excellent   
+kuei            46.6m    100%       7.8/tr       15.9s/tr 42.4s       0.93       Excellent   
+forever         26.3m    100%       8.0/tr       16.8s/tr 29.8s       0.71       Excellent   
+smile           24.1m    100%       3.2/tr       6.0s/tr  19.2s       1.06       Excellent   
+atoz            17.0m    100%       1.0/tr       2.4s/tr  11.3s       1.18       Excellent   
+oval            19.1m    100%       1.0/tr       2.0s/tr  13.1s       1.13       Excellent   
+ace             48.6m    100%       0.2/tr       0.4s/tr  30.5s       1.49       Excellent   
+reinvent        36.6m    100%       8.2/tr       16.8s/tr 37.1s       0.84       Excellent   
+barcelona       60.5m    100%       3.2/tr       6.4s/tr  49.0s       1.16       Excellent   
+euro            67.9m    100%       5.6/tr       11.4s/tr 48.5s       1.34       Excellent   
+
+Note: Avg Speed = track_length / avg_lap_time (m/s)
+      Complex = curvature variance (higher = more complex track)
+
+      tr = trial avg
+
+======================================================================
+
+Training analysis plot saved to analysis/v5/v5_training_analysis.png
+Track failure map saved to analysis/v5/v5_track_failures.png
+Generating action space utilization heatmap...
+Action space heatmap saved to analysis/v5/v5_action_space.png
+Generating reward distribution analysis...
+Reward analysis saved to analysis/v5/v5_reward_analysis.png
+
+Generating evaluation plots...
+Generating multi-track comparison plot (11 tracks)...
+Multi-track comparison plot saved to analysis/v5/v5_eval_comparison.png
+
+Generating per-track failure maps...
+  Generating failure map for v5_eval_jennens...
+  Evaluation failure map saved to analysis/v5/v5_eval_jennens_failures.png
+  Generating failure map for v5_eval_pochun-super...
+  Evaluation failure map saved to analysis/v5/v5_eval_pochun-super_failures.png
+  Generating failure map for v5_eval_kuei...
+  Evaluation failure map saved to analysis/v5/v5_eval_kuei_failures.png
+  Generating failure map for v5_eval_forever...
+  Evaluation failure map saved to analysis/v5/v5_eval_forever_failures.png
+  Generating failure map for v5_eval_smile...
+  Evaluation failure map saved to analysis/v5/v5_eval_smile_failures.png
+  Generating failure map for v5_eval_atoz...
+  Evaluation failure map saved to analysis/v5/v5_eval_atoz_failures.png
+  Generating failure map for v5_eval_oval...
+  Evaluation failure map saved to analysis/v5/v5_eval_oval_failures.png
+  Generating failure map for v5_eval_ace...
+  Evaluation failure map saved to analysis/v5/v5_eval_ace_failures.png
+  Generating failure map for v5_eval_reinvent...
+  Evaluation failure map saved to analysis/v5/v5_eval_reinvent_failures.png
+  Generating failure map for v5_eval_barcelona...
+  Evaluation failure map saved to analysis/v5/v5_eval_barcelona_failures.png
+  Generating failure map for v5_eval_euro...
+  Evaluation failure map saved to analysis/v5/v5_eval_euro_failures.png
+
+Generating per-track speed profiles...
+  Generating speed profile for v5_eval_jennens...
+  Speed profile saved to analysis/v5/v5_eval_jennens_speed_profile.png
+  Generating speed profile for v5_eval_pochun-super...
+  Speed profile saved to analysis/v5/v5_eval_pochun-super_speed_profile.png
+  Generating speed profile for v5_eval_kuei...
+  Speed profile saved to analysis/v5/v5_eval_kuei_speed_profile.png
+  Generating speed profile for v5_eval_forever...
+  Speed profile saved to analysis/v5/v5_eval_forever_speed_profile.png
+  Generating speed profile for v5_eval_smile...
+  Speed profile saved to analysis/v5/v5_eval_smile_speed_profile.png
+  Generating speed profile for v5_eval_atoz...
+  Speed profile saved to analysis/v5/v5_eval_atoz_speed_profile.png
+  Generating speed profile for v5_eval_oval...
+  Speed profile saved to analysis/v5/v5_eval_oval_speed_profile.png
+  Generating speed profile for v5_eval_ace...
+  Speed profile saved to analysis/v5/v5_eval_ace_speed_profile.png
+  Generating speed profile for v5_eval_reinvent...
+  Speed profile saved to analysis/v5/v5_eval_reinvent_speed_profile.png
+  Generating speed profile for v5_eval_barcelona...
+  Speed profile saved to analysis/v5/v5_eval_barcelona_speed_profile.png
+  Generating speed profile for v5_eval_euro...
+  Speed profile saved to analysis/v5/v5_eval_euro_speed_profile.png
+
+Analysis complete. Log saved to analysis/v5/v5_analysis_20251118_092823.txt
